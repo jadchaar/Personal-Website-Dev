@@ -1,0 +1,140 @@
+@import 'normalize';
+$open-sans: 'Open Sans', sans-serif;
+$space-mono: 'Space Mono', monospace;
+$white: #fff;
+$black: #000;
+$p-text-color: #3e3e3e;
+$michigan-maize: #ffcb05;
+$michigan-blue: #00274c;
+$gradient-color-one: #22e1ff;
+$gradient-color-two: #1d8fe1;
+$gradient-color-three: #625eb1;
+$h1-text-size: 48px;
+$h2-text-size: 36px;
+$p-text-size: 18px;
+$a-tags: 'a, a:active, a:hover, a:visited';
+$anchor-link-default: #265c83;
+$anchor-link-hover: #7fdbff;
+$anchor-link-active: #0074d9;
+@mixin links-opacity ($link, $visit, $hover, $active) {
+  a {
+    opacity: $link;
+
+    &:visited {
+      opacity: $visit;
+    }
+
+    &:hover {
+      opacity: $hover;
+    }
+
+    &:active {
+      opacity: $active;
+    }
+  }
+}
+@mixin links-color ($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+
+    &:visited {
+      color: $visit;
+    }
+
+    &:hover {
+      color: $hover;
+    }
+
+    &:active {
+      color: $active;
+    }
+  }
+}
+
+body {
+  background-color: $white;
+  font-family: $open-sans;
+}
+
+.default-cursor {
+  cursor: default;
+}
+
+strong {
+  font-weight: 700;
+}
+
+#{$a-tags} {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+// Top Banner
+
+header {
+  background-color: $gradient-color-two;
+  background-image: linear-gradient(-225deg, $gradient-color-one 0%, $gradient-color-two 48%, $gradient-color-three 100%);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 3vw 2em;
+  text-align: center;
+}
+
+header > img {
+  border: 5px solid $white;
+  border-radius: 50%;
+}
+
+header > h1 {
+  color: $white;
+  font-size: $h1-text-size;
+  font-weight: 700;
+}
+// Social Links
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul > li {
+  @include links-opacity(1, 1, .6, .6);
+  display: inline-block;
+}
+
+ul > li > a > svg {
+  fill: $white;
+  height: 1.75em;
+  padding: 0 .5em;
+  width: 1.75em;
+}
+// Main Content
+
+main {
+  color: $black;
+  margin: 0 auto;
+  max-width: 40em;
+}
+
+main > section > h2 {
+  font-family: $space-mono;
+  font-size: $h2-text-size;
+  font-weight: 700;
+}
+
+main > section > p {
+  @include links-color($anchor-link-default, $anchor-link-default, $anchor-link-hover, $anchor-link-active);
+  color: $p-text-color;
+  font-size: $p-text-size;
+  font-weight: 400;
+  line-height: 1.75em;
+}
+
+.go-blue-text-1 {
+  color: $michigan-maize;
+}
+
+.go-blue-text-2 {
+  color: $michigan-blue;
+}
