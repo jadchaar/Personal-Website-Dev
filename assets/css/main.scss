@@ -6,9 +6,8 @@ $black: #000;
 $p-text-color: #3e3e3e;
 $michigan-maize: #ffcb05;
 $michigan-blue: #00274c;
-$gradient-color-one: #22e1ff;
-$gradient-color-two: #1d8fe1;
-$gradient-color-three: #625eb1;
+$gradient-color-one: #2f80ed;
+$gradient-color-two: #56ccf2;
 $h1-text-size: 48px;
 $h2-text-size: 36px;
 $p-text-size: 18px;
@@ -50,6 +49,29 @@ $anchor-link-active: #0074d9;
     }
   }
 }
+@mixin center-elements {
+  margin: 0 auto;
+  max-width: 40em;
+}
+@mixin linear-gradient-theme {
+  background: linear-gradient(to right, $gradient-color-one, $gradient-color-two);
+}
+@mixin text-stroke($stroke-width, $stroke-color, $text-color) {
+  // sass-lint:disable-block no-vendor-prefixes
+  @supports ((-webkit-text-fill-color: $text-color)) {
+    -webkit-text-fill-color: $text-color;
+  }
+  @supports ((-webkit-text-stroke-color: $stroke-color) and (-webkit-text-stroke-width: $stroke-width)) {
+    -webkit-text-stroke: $stroke-width $stroke-color;
+  }
+  // Fallbacks
+  @supports not ((-webkit-text-fill-color: $text-color)) {
+    color: $text-color;
+  }
+  @supports not ((-webkit-text-stroke-color: $stroke-color) and (-webkit-text-stroke-width: $stroke-width)) {
+    text-shadow: -1px -1px 1px $michigan-blue, 1px -1px 1px $michigan-blue, -1px 1px 1px $michigan-blue, 1px 1px 1px $michigan-blue;
+  }
+}
 
 body {
   background-color: $white;
@@ -68,15 +90,10 @@ strong {
   cursor: pointer;
   text-decoration: none;
 }
-
 // Top Banner
 
 header {
-  background-color: $gradient-color-two;
-  background-image: linear-gradient(-225deg, $gradient-color-one 0%, $gradient-color-two 48%, $gradient-color-three 100%);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @include linear-gradient-theme;
   padding: 3vw 2em;
   text-align: center;
 }
@@ -112,15 +129,18 @@ ul > li > a > svg {
 // Main Content
 
 main {
+  @include center-elements;
   color: $black;
-  margin: 0 auto;
-  max-width: 40em;
 }
 
 main > section > h2 {
   font-family: $space-mono;
   font-size: $h2-text-size;
   font-weight: 700;
+
+  &:not(.welcome-title) {
+    margin-top: 18px;
+  }
 }
 
 main > section > p {
@@ -131,10 +151,51 @@ main > section > p {
   line-height: 1.75em;
 }
 
-.go-blue-text-1 {
-  color: $michigan-maize;
+.go-blue-text {
+  @include text-stroke(1px, $michigan-blue, $michigan-maize)letter-spacing: .05em;
 }
 
-.go-blue-text-2 {
-  color: $michigan-blue;
+footer > p > svg {
+  display: inline-block;
+  height: 1.25em;
+  line-height: normal;
+  margin: -.25ex .0625em 0 .125em;
+  vertical-align: middle;
+  width: 1.25em;
+}
+
+footer {
+  @include center-elements;
+  text-align: center;
+}
+
+hr {
+  background-image: linear-gradient(to right, transparent, $p-text-color, transparent);
+  border: 0;
+  height: 1px;
+}
+
+footer > p {
+  color: $p-text-color;
+  font-size: $p-text-size;
+  font-weight: 400;
+}
+
+.circle-groups {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  @include linear-gradient-theme;
+  border-radius: 25px;
+  height: 10px;
+  margin: 0 .5em;
+  width: 10px;
+}
+@media only screen and (max-width: 768px) {
+  main {
+    padding: 0 1em;
+  }
 }
