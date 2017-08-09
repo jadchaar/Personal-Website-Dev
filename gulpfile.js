@@ -11,6 +11,10 @@ const rename = require('gulp-rename');
 const gutil = require('gulp-util');
 const critical = require('critical').stream;
 
+// Google Page Speed Insights
+const psi = require('psi');
+const SITE_TO_BENCHMARK = 'https://jadchaar.me';
+
 gulp.task('sass-compile', (cb) => {
   pump([
     gulp.src('assets/sass/styles.scss'),
@@ -104,9 +108,30 @@ gulp.task('insert-critical-css', (cb) => {
   ], cb);
 });
 
+// Google Page Speed Insights
+
+gulp.task('psi-mobile', () => {
+  psi.output(SITE_TO_BENCHMARK, {
+    nokey: 'true',
+    strategy: 'mobile'
+  }).then(() => {
+    console.log('done');
+  });
+});
+
+gulp.task('psi-desktop', () => {
+  psi.output(SITE_TO_BENCHMARK, {
+    nokey: 'true',
+    strategy: 'desktop'
+  }).then(() => {
+    console.log('done');
+  });
+});
+
 gulp.task('default', ['sass-compile', 'sass:watch']);
 gulp.task('build', ['minify-critical-html', 'move-css', 'move-img', 'move-cname']);
 gulp.task('clean', ['clean:build']);
-gulp.task('minify', ['minify-loadCSS'])
-gulp.task('critical', ['insert-critical-css'])
-gulp.task('build-prep', ['clean:build', 'insert-critical-css'])
+gulp.task('minify', ['minify-loadCSS']);
+gulp.task('critical', ['insert-critical-css']);
+gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
+gulp.task('benchmark', ['psi-mobile', 'psi-desktop']);
