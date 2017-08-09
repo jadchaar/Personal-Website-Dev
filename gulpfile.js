@@ -8,7 +8,8 @@ const bump = require('gulp-bump');
 const del = require('del');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-const critical = require('critical');
+const gutil = require('gulp-util');
+const critical = require('critical').stream;
 
 gulp.task('sass-compile', (cb) => {
   pump([
@@ -30,17 +31,27 @@ gulp.task('sass:watch', () => {
   gulp.watch('assets/sass/styles.scss', ['sass-compile']);
 });
 
-gulp.task('minify-html', (cb) => {
+gulp.task('minify-critical-html', (cb) => {
   pump([
-    gulp.src('index.html'),
+    gulp.src('index-critical.html'),
     htmlmin({collapseWhitespace: true, conservativeCollapse: true, minifyCSS: true, minifyJS: true, removeComments: true}),
+    rename({basename: 'index'}),
     gulp.dest('build')
   ], cb);
 });
 
 gulp.task('move-css', (cb) => {
   pump([
-    gulp.src('assets/css/styles.css'), gulp.dest('build/assets/css')
+    gulp.src('assets/css/styles.css'),
+    cleanCSS((output) => {
+      if (output.errors.length) {
+        console.log(output.errors); // a list of errors raised
+      }
+      if (output.warnings.length) {
+        console.log(output.warnings); // a list of warnings raised
+      }
+    }),
+    gulp.dest('build/assets/css')
   ], cb);
 });
 
@@ -83,56 +94,19 @@ gulp.task('clean:build', () => {
 //   ], cb);
 // });
 
-gulp.task('critical-css', () => {
-  critical.generate({
-    // Inline the generated critical-path CSS
-    // - true generates HTML
-    // - false generates CSS
-    inline: true,
-
-    // Your base directory
-    base: './',
-
-    // HTML source file
-    src: 'index.html',
-
-    // Your CSS Files (optional)
-    css: ['assets/css/styles.css'],
-
-    // Viewport width
-    width: 1300,
-
-    // Viewport height
-    height: 900,
-
-    // Target for final HTML output.
-    // use some CSS file when the inline option is not set
-    dest: 'index-critical.html',
-
-    // Minify critical-path CSS when inlining
-    minify: true,
-
-    // Extract inlined styles from referenced stylesheets
-    extract: true,
-
-    // Complete Timeout for Operation
-    timeout: 30000,
-
-    // Prefix for asset directory
-    pathPrefix: '/MySubfolderDocrot',
-
-    // ignore CSS rules
-    ignore: [
-      'font-face', /some-regexp/
-    ],
-
-    // overwrite default options
-    ignoreOptions: {}
-  });
+gulp.task('insert-critical-css', (cb) => {
+  pump([
+    gulp.src('index.html'),
+    critical({inline: true, base: './', css: ['./assets/css/styles.css'], dest: 'index-critical.html', minify: true}).on('error', (err) => {
+      gutil.log(gutil.colors.red(err.message));
+    }),
+    gulp.dest('build/')
+  ], cb);
 });
 
 gulp.task('default', ['sass-compile', 'sass:watch']);
-gulp.task('build', ['minify-html', 'move-css', 'move-img', 'move-cname']);
+gulp.task('build', ['minify-critical-html', 'move-css', 'move-img', 'move-cname']);
 gulp.task('clean', ['clean:build']);
 gulp.task('minify', ['minify-loadCSS'])
-gulp.task('critical', [''])
+gulp.task('critical', ['insert-critical-css'])
+gulp.task('build-prep', ['clean:build', 'insert-critical-css'])
