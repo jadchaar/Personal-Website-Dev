@@ -129,4 +129,3 @@ gulp.task('minify', ['minify-loadCSS']);
 gulp.task('critical', ['insert-critical-css']);
 gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
 gulp.task('benchmark', ['psi-mobile', 'psi-desktop']);
-gulp.task('img', ['minify-images']);
