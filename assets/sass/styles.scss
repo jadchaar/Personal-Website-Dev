@@ -83,12 +83,18 @@ body {
   font-family: $open-sans;
 }
 
-.default-cursor {
-  cursor: default;
-}
-
 strong {
   font-weight: 700;
+}
+
+::-moz-selection { // sass-lint:disable-line no-vendor-prefixes
+  background: $gradient-color-one;
+  color: $white;
+}
+
+::selection {
+  background: $gradient-color-one;
+  color: $white;
 }
 
 #{$a-tags} {
@@ -99,14 +105,11 @@ strong {
 
 header {
   @include linear-gradient-theme;
+  cursor: default;
   padding: 3vw 2em;
   text-align: center;
+  user-select: none;
 }
-
-// header > img {
-//   border: 5px solid $white;
-//   border-radius: 50%;
-// }
 
 header > svg {
   border: 5px solid $white;
@@ -141,16 +144,13 @@ ul > li > a > svg {
 main {
   @include center-elements;
   color: $black;
+  position: relative; // Fixes full width selection in Safari
 }
 
 main > section > h2 {
   font-family: $space-mono;
   font-size: $h2-text-size;
   font-weight: 700;
-
-  &:not(.welcome-title) {
-    margin-top: 18px;
-  }
 }
 
 main > section > p {
@@ -190,7 +190,6 @@ footer > p {
   font-size: $p-text-size;
   font-weight: 400;
 }
-
 // .circle-groups {
 //   align-items: center;
 //   display: flex;

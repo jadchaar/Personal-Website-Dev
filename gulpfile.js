@@ -59,21 +59,23 @@ gulp.task('move-css', (cb) => {
   ], cb);
 });
 
-gulp.task('move-img', (cb) => {
+gulp.task('minify-favicons', (cb) => {
   pump([
-    gulp.src('assets/img/**/*'), gulp.dest('build/assets/img')
+    gulp.src('assets/img/favicons/*'),
+    imagemin({verbose: true}),
+    gulp.dest('build/assets/img/favicons')
+  ], cb);
+});
+
+gulp.task('move-sprites', (cb) => {
+  pump([
+    gulp.src('assets/img/sprites.svg'), gulp.dest('build/assets/img')
   ], cb);
 });
 
 gulp.task('move-cname', (cb) => {
   pump([
     gulp.src('CNAME'), gulp.dest('build')
-  ], cb);
-});
-
-gulp.task('add-loadCSS', (cb) => {
-  pump([
-    gulp.src('index.html'), gulp.dest('build')
   ], cb);
 });
 
@@ -89,14 +91,6 @@ gulp.task('minify-loadCSS', (cb) => {
 gulp.task('clean:build', () => {
   del('build');
 });
-
-// gulp.task('minify-images-build', (cb) => {
-//   pump([
-//     gulp.src('img/*'),
-// imagemin({verbose: true}),
-//     gulp.dest('build/img')
-//   ], cb);
-// });
 
 gulp.task('insert-critical-css', (cb) => {
   pump([
@@ -129,9 +123,10 @@ gulp.task('psi-desktop', () => {
 });
 
 gulp.task('default', ['sass-compile', 'sass:watch']);
-gulp.task('build', ['minify-critical-html', 'move-css', 'move-img', 'move-cname']);
+gulp.task('build', ['minify-critical-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
 gulp.task('clean', ['clean:build']);
 gulp.task('minify', ['minify-loadCSS']);
 gulp.task('critical', ['insert-critical-css']);
 gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
 gulp.task('benchmark', ['psi-mobile', 'psi-desktop']);
+gulp.task('img', ['minify-images']);
