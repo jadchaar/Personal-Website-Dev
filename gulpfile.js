@@ -115,7 +115,7 @@ gulp.task('psi-mobile', () => {
     nokey: 'true',
     strategy: 'mobile'
   }).then(() => {
-    console.log('done');
+    console.log('Mobile Page Insights Complete!');
   });
 });
 
@@ -124,7 +124,7 @@ gulp.task('psi-desktop', () => {
     nokey: 'true',
     strategy: 'desktop'
   }).then(() => {
-    console.log('done');
+    console.log('Desktop Page Insights Complete!');
   });
 });
 

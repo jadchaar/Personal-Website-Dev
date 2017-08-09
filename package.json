@@ -6,7 +6,8 @@
   "main": "main.js",
   "scripts": {
     "start": "concurrently -k -p \"{name}\" -n \"sass-compile,live-server\" -c \"cyan,yellow\" \"gulp\" \"node main.js\"",
-    "build": "gulp build-prep && gulp build"
+    "build": "gulp build-prep && gulp build",
+    "benchmark": "gulp benchmark"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
