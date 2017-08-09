@@ -103,7 +103,12 @@ header {
   text-align: center;
 }
 
-header > img {
+// header > img {
+//   border: 5px solid $white;
+//   border-radius: 50%;
+// }
+
+header > svg {
   border: 5px solid $white;
   border-radius: 50%;
 }
