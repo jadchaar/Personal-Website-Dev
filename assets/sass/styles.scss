@@ -72,6 +72,11 @@ $anchor-link-active: #0074d9;
     text-shadow: -1px -1px 1px $michigan-blue, 1px -1px 1px $michigan-blue, -1px 1px 1px $michigan-blue, 1px 1px 1px $michigan-blue;
   }
 }
+@media only screen and (max-width: 768px) {
+  main {
+    padding: 0 1em;
+  }
+}
 
 body {
   background-color: $white;
@@ -181,21 +186,16 @@ footer > p {
   font-weight: 400;
 }
 
-.circle-groups {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
-.circle {
-  @include linear-gradient-theme;
-  border-radius: 25px;
-  height: 10px;
-  margin: 0 .5em;
-  width: 10px;
-}
-@media only screen and (max-width: 768px) {
-  main {
-    padding: 0 1em;
-  }
-}
+// .circle-groups {
+//   align-items: center;
+//   display: flex;
+//   justify-content: center;
+// }
+//
+// .circle {
+//   @include linear-gradient-theme;
+//   border-radius: 25px;
+//   height: 10px;
+//   margin: 0 .5em;
+//   width: 10px;
+// }

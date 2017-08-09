@@ -1,0 +1,38 @@
+{
+  "name": "PersonalWebsiteDev",
+  "email": "jad.chaar@gmail.com",
+  "url": "https://jadchaar.me",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "gulp && node main.js",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.7.0",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-sass": "^3.1.0",
+    "live-server": "^1.2.0",
+    "pump": "^1.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadchaar/Personal-Website-Dev.git"
+  },
+  "keywords": [
+    "Jad",
+    "Chaar",
+    "Jad Chaar"
+  ],
+  "author": "Jad Chaar",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "description": "Personal Website of Jad Chaar",
+  "dependencies": {}
+}
