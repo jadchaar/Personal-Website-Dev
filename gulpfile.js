@@ -21,10 +21,10 @@ gulp.task('sass-compile', (cb) => {
     sass().on('error', sass.logError),
     cleanCSS((output) => {
       if (output.errors.length) {
-        console.log(output.errors); // a list of errors raised
+        gutil.log(output.errors); // a list of errors raised
       }
       if (output.warnings.length) {
-        console.log(output.warnings); // a list of warnings raised
+        gutil.log(output.warnings); // a list of warnings raised
       }
     }),
     gulp.dest('assets/css')
@@ -49,10 +49,10 @@ gulp.task('move-css', (cb) => {
     gulp.src('assets/css/styles.css'),
     cleanCSS((output) => {
       if (output.errors.length) {
-        console.log(output.errors); // a list of errors raised
+        gutil.log(output.errors); // a list of errors raised
       }
       if (output.warnings.length) {
-        console.log(output.warnings); // a list of warnings raised
+        gutil.log(output.warnings); // a list of warnings raised
       }
     }),
     gulp.dest('build/assets/css')
@@ -89,7 +89,11 @@ gulp.task('minify-loadCSS', (cb) => {
 });
 
 gulp.task('clean:build', () => {
-  del('build');
+  del(['build/**', 'index-critical.html']).then(paths => {
+    if (paths.length) {
+      gutil.log('Deleted files and folders:\n', paths.join('\n'));
+    }
+  });
 });
 
 gulp.task('insert-critical-css', (cb) => {
@@ -109,7 +113,7 @@ gulp.task('psi-mobile', () => {
     nokey: 'true',
     strategy: 'mobile'
   }).then(() => {
-    console.log('Mobile Page Insights Complete!');
+    gutil.log('Mobile Page Insights Complete!');
   });
 });
 
@@ -118,7 +122,7 @@ gulp.task('psi-desktop', () => {
     nokey: 'true',
     strategy: 'desktop'
   }).then(() => {
-    console.log('Desktop Page Insights Complete!');
+    gutil.log('Desktop Page Insights Complete!');
   });
 });
 
