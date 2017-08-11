@@ -1,5 +1,4 @@
 // sass-lint:disable no-vendor-prefixes
-
 @import 'normalize';
 $open-sans: 'Open Sans';
 $space-mono: 'Space Mono';
@@ -17,6 +16,7 @@ $a-tags: 'a, a:active, a:hover, a:visited';
 $anchor-link-default: #265c83;
 $anchor-link-hover: #7fdbff;
 $anchor-link-active: #0074d9;
+$transparent: rgba(0, 0, 0, 0);
 @mixin links-opacity ($link, $visit, $hover, $active) {
   a {
     opacity: $link;
@@ -90,6 +90,10 @@ $anchor-link-active: #0074d9;
   }
 }
 
+* {
+  -webkit-tap-highlight-color: $transparent;
+}
+
 body {
   @include font-selection;
   background-color: $white;
@@ -146,6 +150,10 @@ ul > li {
   display: inline-block;
 }
 
+ul > li > #{$a-tags} {
+  display: block;
+}
+
 ul > li > a > svg {
   fill: $white;
   height: 1.75em;
@@ -192,7 +200,7 @@ footer {
 }
 
 hr {
-  background-image: linear-gradient(to right, transparent, $p-text-color, transparent);
+  background-image: linear-gradient(to right, $transparent, $p-text-color, $transparent);
   border: 0;
   height: 1px;
 }
