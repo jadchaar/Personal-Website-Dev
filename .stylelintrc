@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "selector-list-comma-newline-after": null,
+    "selector-combinator-space-before": null,
+    "selector-combinator-space-after": null,
+    "max-empty-lines": null,
+    "comment-empty-line-before": null
+  }
+}

@@ -1,0 +1,217 @@
+// sass-lint:disable no-vendor-prefixes
+
+@import 'normalize';
+$open-sans: 'Open Sans';
+$space-mono: 'Space Mono';
+$white: #fff;
+$black: #000;
+$p-text-color: #3e3e3e;
+$michigan-maize: #ffcb05;
+$michigan-blue: #00274c;
+$gradient-color-one: #2f80ed;
+$gradient-color-two: #56ccf2;
+$h1-text-size: 48px;
+$h2-text-size: 36px;
+$p-text-size: 18px;
+$a-tags: 'a, a:active, a:hover, a:visited';
+$anchor-link-default: #265c83;
+$anchor-link-hover: #7fdbff;
+$anchor-link-active: #0074d9;
+@mixin links-opacity ($link, $visit, $hover, $active) {
+  a {
+    opacity: $link;
+
+    &:visited {
+      opacity: $visit;
+    }
+
+    &:hover {
+      opacity: $hover;
+    }
+
+    &:active {
+      opacity: $active;
+    }
+  }
+}
+@mixin links-color ($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+
+    &:visited {
+      color: $visit;
+    }
+
+    &:hover {
+      color: $hover;
+    }
+
+    &:active {
+      color: $active;
+    }
+  }
+}
+@mixin center-elements {
+  margin: 0 auto;
+  max-width: 40em;
+}
+@mixin linear-gradient-theme {
+  background: linear-gradient(to right, $gradient-color-one, $gradient-color-two);
+}
+@mixin text-stroke($stroke-width, $stroke-color, $text-color) {
+  @supports ((-webkit-text-fill-color: $text-color)) {
+    -webkit-text-fill-color: $text-color;
+  }
+  @supports ((-webkit-text-stroke-color: $stroke-color) and (-webkit-text-stroke-width: $stroke-width)) {
+    -webkit-text-stroke: $stroke-width $stroke-color;
+  }
+  // Fallbacks
+  @supports not ((-webkit-text-fill-color: $text-color)) {
+    color: $text-color;
+  }
+  @supports not ((-webkit-text-stroke-color: $stroke-color) and (-webkit-text-stroke-width: $stroke-width)) {
+    text-shadow: -1px -1px 1px $michigan-blue, 1px -1px 1px $michigan-blue, -1px 1px 1px $michigan-blue, 1px 1px 1px $michigan-blue;
+  }
+}
+@mixin font-selection($family: 'Open Sans', $weight: 400) {
+  @if $family == 'Open Sans' {
+    font-family: $family, sans-serif;
+    font-weight: $weight;
+  }
+
+  @if $family == 'Space Mono' {
+    font-family: $family, monospace;
+    font-weight: $weight;
+  }
+}
+@media only screen and (max-width: 768px) {
+  main {
+    padding: 0 1em;
+  }
+}
+
+body {
+  @include font-selection;
+  background-color: $white;
+}
+
+strong {
+  font-weight: 700;
+}
+
+::-moz-selection {
+  background: $gradient-color-one;
+  color: $white;
+}
+
+::selection {
+  background: $gradient-color-one;
+  color: $white;
+}
+
+#{$a-tags} {
+  cursor: pointer;
+  outline: 0;
+  text-decoration: none;
+}
+// Top Banner
+
+header {
+  @include linear-gradient-theme;
+  cursor: default;
+  padding: 3vw 2em;
+  text-align: center;
+  user-select: none;
+}
+
+header > svg {
+  border: 5px solid $white;
+  border-radius: 50%;
+}
+
+header > h1 {
+  @include font-selection($open-sans, 700);
+  color: $white;
+  font-size: $h1-text-size;
+}
+// Social Links
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul > li {
+  @include links-opacity(1, 1, .6, .6);
+  display: inline-block;
+}
+
+ul > li > a > svg {
+  fill: $white;
+  height: 1.75em;
+  padding: 0 .5em;
+  width: 1.75em;
+}
+// Main Content
+
+main {
+  @include center-elements;
+  color: $black;
+  position: relative; // Fixes full width selection in Safari
+}
+
+main > section > h2 {
+  @include font-selection($space-mono, 700);
+  font-size: $h2-text-size;
+}
+
+main > section > p {
+  @include links-color($anchor-link-default, $anchor-link-default, $anchor-link-hover, $anchor-link-active);
+  @include font-selection;
+  color: $p-text-color;
+  font-size: $p-text-size;
+  line-height: 1.75em;
+}
+
+.go-blue-text {
+  @include text-stroke(1px, $michigan-blue, $michigan-maize)letter-spacing: .05em;
+}
+
+footer > p > svg {
+  display: inline-block;
+  height: 1.25em;
+  line-height: normal;
+  margin: -.25ex .0625em 0 .125em;
+  vertical-align: middle;
+  width: 1.25em;
+}
+
+footer {
+  @include center-elements;
+  text-align: center;
+}
+
+hr {
+  background-image: linear-gradient(to right, transparent, $p-text-color, transparent);
+  border: 0;
+  height: 1px;
+}
+
+footer > p {
+  @include font-selection;
+  color: $p-text-color;
+  font-size: $p-text-size;
+}
+// .circle-groups {
+//   align-items: center;
+//   display: flex;
+//   justify-content: center;
+// }
+//
+// .circle {
+//   @include linear-gradient-theme;
+//   border-radius: 25px;
+//   height: 10px;
+//   margin: 0 .5em;
+//   width: 10px;
+// }
