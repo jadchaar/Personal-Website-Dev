@@ -38,7 +38,18 @@ gulp.task('sass:watch', () => {
 gulp.task('minify-critical-html', (cb) => {
   pump([
     gulp.src('index-critical.html'),
-    htmlmin({collapseWhitespace: true, conservativeCollapse: true, minifyCSS: true, minifyJS: true, removeComments: true}),
+    htmlmin({
+      collapseWhitespace: true,
+      minifyCSS: true,
+      minifyJS: true,
+      removeComments: true,
+      removeEmptyAttributes: true,
+      removeEmptyElements: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+    }),
     rename({basename: 'index'}),
     gulp.dest('build')
   ], cb);
