@@ -138,6 +138,7 @@ gulp.task('psi-desktop', () => {
 });
 
 gulp.task('default', ['sass-compile', 'sass:watch']);
+gulp.task('compile:sass', ['sass-compile']);
 gulp.task('build', ['minify-critical-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
 gulp.task('clean', ['clean:build']);
 gulp.task('minify', ['minify-loadCSS']);
