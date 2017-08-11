@@ -1,6 +1,8 @@
+// sass-lint:disable no-vendor-prefixes
+
 @import 'normalize';
-$open-sans: 'Open Sans', sans-serif;
-$space-mono: 'Space Mono', monospace;
+$open-sans: 'Open Sans';
+$space-mono: 'Space Mono';
 $white: #fff;
 $black: #000;
 $p-text-color: #3e3e3e;
@@ -57,7 +59,6 @@ $anchor-link-active: #0074d9;
   background: linear-gradient(to right, $gradient-color-one, $gradient-color-two);
 }
 @mixin text-stroke($stroke-width, $stroke-color, $text-color) {
-  // sass-lint:disable-block no-vendor-prefixes
   @supports ((-webkit-text-fill-color: $text-color)) {
     -webkit-text-fill-color: $text-color;
   }
@@ -72,6 +73,17 @@ $anchor-link-active: #0074d9;
     text-shadow: -1px -1px 1px $michigan-blue, 1px -1px 1px $michigan-blue, -1px 1px 1px $michigan-blue, 1px 1px 1px $michigan-blue;
   }
 }
+@mixin font-selection($family: 'Open Sans', $weight: 400) {
+  @if $family == 'Open Sans' {
+    font-family: $family, sans-serif;
+    font-weight: $weight;
+  }
+
+  @if $family == 'Space Mono' {
+    font-family: $family, monospace;
+    font-weight: $weight;
+  }
+}
 @media only screen and (max-width: 768px) {
   main {
     padding: 0 1em;
@@ -79,15 +91,15 @@ $anchor-link-active: #0074d9;
 }
 
 body {
+  @include font-selection;
   background-color: $white;
-  font-family: $open-sans;
 }
 
 strong {
   font-weight: 700;
 }
 
-::-moz-selection { // sass-lint:disable-line no-vendor-prefixes
+::-moz-selection {
   background: $gradient-color-one;
   color: $white;
 }
@@ -117,9 +129,9 @@ header > svg {
 }
 
 header > h1 {
+  @include font-selection($open-sans, 700);
   color: $white;
   font-size: $h1-text-size;
-  font-weight: 700;
 }
 // Social Links
 
@@ -148,16 +160,15 @@ main {
 }
 
 main > section > h2 {
-  font-family: $space-mono;
+  @include font-selection($space-mono, 700);
   font-size: $h2-text-size;
-  font-weight: 700;
 }
 
 main > section > p {
   @include links-color($anchor-link-default, $anchor-link-default, $anchor-link-hover, $anchor-link-active);
+  @include font-selection;
   color: $p-text-color;
   font-size: $p-text-size;
-  font-weight: 400;
   line-height: 1.75em;
 }
 
@@ -186,9 +197,9 @@ hr {
 }
 
 footer > p {
+  @include font-selection;
   color: $p-text-color;
   font-size: $p-text-size;
-  font-weight: 400;
 }
 // .circle-groups {
 //   align-items: center;
