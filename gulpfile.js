@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const pump = require('pump');
 const cleanCSS = require('gulp-clean-css');
+const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
@@ -19,6 +20,9 @@ gulp.task('sass-compile', (cb) => {
   pump([
     gulp.src('assets/sass/styles.scss'),
     sass().on('error', sass.logError),
+    autoprefixer({
+      cascade: false
+    }),
     cleanCSS((output) => {
       if (output.errors.length) {
         gutil.log(output.errors); // a list of errors raised
@@ -50,7 +54,9 @@ gulp.task('minify-critical-html', (cb) => {
       removeStyleLinkTypeAttributes: true,
       useShortDoctype: true
     }),
-    rename({basename: 'index'}),
+    rename({
+      basename: 'index'
+    }),
     gulp.dest('build')
   ], cb);
 });
@@ -73,7 +79,9 @@ gulp.task('move-css', (cb) => {
 gulp.task('minify-favicons', (cb) => {
   pump([
     gulp.src('assets/img/favicons/*'),
-    imagemin({verbose: true}),
+    imagemin({
+      verbose: true
+    }),
     gulp.dest('build/assets/img/favicons')
   ], cb);
 });
@@ -94,7 +102,9 @@ gulp.task('minify-loadCSS', (cb) => {
   pump([
     gulp.src(['!assets/js/*.min.js', 'assets/js/*.js']),
     uglify(),
-    rename({extname: '.min.js'}),
+    rename({
+      extname: '.min.js'
+    }),
     gulp.dest('assets/js')
   ], cb);
 });
@@ -110,7 +120,13 @@ gulp.task('clean:build', () => {
 gulp.task('insert-critical-css', (cb) => {
   pump([
     gulp.src('index.html'),
-    critical({inline: true, base: './', css: ['./assets/css/styles.css'], dest: 'index-critical.html', minify: true}).on('error', (err) => {
+    critical({
+      inline: true,
+      base: './',
+      css: ['./assets/css/styles.css'],
+      dest: 'index-critical.html',
+      minify: true
+    }).on('error', (err) => {
       gutil.log(gutil.colors.red(err.message));
     }),
     gulp.dest('build/')
