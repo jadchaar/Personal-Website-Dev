@@ -11,12 +11,34 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const gutil = require('gulp-util');
 const critical = require('critical').stream;
+const sourcemaps = require('gulp-sourcemaps');
 
 // Google Page Speed Insights
 const psi = require('psi');
 const SITE_TO_BENCHMARK = 'https://jadchaar.me';
 
-gulp.task('sass-compile', (cb) => {
+gulp.task('sass-compile-dev', (cb) => {
+  pump([
+    gulp.src('assets/sass/styles.scss'),
+    sourcemaps.init(),
+    sass().on('error', sass.logError),
+    autoprefixer({
+      cascade: false
+    }),
+    cleanCSS((output) => {
+      if (output.errors.length) {
+        gutil.log(output.errors); // a list of errors raised
+      }
+      if (output.warnings.length) {
+        gutil.log(output.warnings); // a list of warnings raised
+      }
+    }),
+    sourcemaps.write('.'),
+    gulp.dest('assets/css')
+  ], cb);
+});
+
+gulp.task('sass-compile-build', (cb) => {
   pump([
     gulp.src('assets/sass/styles.scss'),
     sass().on('error', sass.logError),
@@ -36,7 +58,7 @@ gulp.task('sass-compile', (cb) => {
 });
 
 gulp.task('sass:watch', () => {
-  gulp.watch('assets/sass/styles.scss', ['sass-compile']);
+  gulp.watch('assets/sass/styles.scss', ['sass-compile-dev']);
 });
 
 gulp.task('minify-critical-html', (cb) => {
@@ -64,14 +86,6 @@ gulp.task('minify-critical-html', (cb) => {
 gulp.task('move-css', (cb) => {
   pump([
     gulp.src('assets/css/styles.css'),
-    cleanCSS((output) => {
-      if (output.errors.length) {
-        gutil.log(output.errors); // a list of errors raised
-      }
-      if (output.warnings.length) {
-        gutil.log(output.warnings); // a list of warnings raised
-      }
-    }),
     gulp.dest('build/assets/css')
   ], cb);
 });
@@ -153,8 +167,8 @@ gulp.task('psi-desktop', () => {
   });
 });
 
-gulp.task('default', ['sass-compile', 'sass:watch']);
-gulp.task('compile:sass', ['sass-compile']);
+gulp.task('default', ['sass-compile-dev', 'sass:watch']);
+gulp.task('compile:sass', ['sass-compile-build']);
 gulp.task('build', ['minify-critical-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
 gulp.task('clean', ['clean:build']);
 gulp.task('minify', ['minify-loadCSS']);

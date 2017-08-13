@@ -29,6 +29,7 @@
     "gulp-imagemin": "^3.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "live-server": "^1.2.0",
