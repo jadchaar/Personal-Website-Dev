@@ -53,6 +53,9 @@ gulp.task('sass-compile-build', (cb) => {
         gutil.log(output.warnings); // a list of warnings raised
       }
     }),
+    rename({
+      basename: 'styles-build'
+    }),
     gulp.dest('assets/css')
   ], cb);
 });
@@ -61,7 +64,7 @@ gulp.task('sass:watch', () => {
   gulp.watch('assets/sass/styles.scss', ['sass-compile-dev']);
 });
 
-gulp.task('minify-critical-html', (cb) => {
+gulp.task('minify-html', (cb) => {
   pump([
     gulp.src('index-critical.html'),
     htmlmin({
@@ -85,7 +88,10 @@ gulp.task('minify-critical-html', (cb) => {
 
 gulp.task('move-css', (cb) => {
   pump([
-    gulp.src('assets/css/styles.css'),
+    gulp.src('assets/css/styles-build.css'),
+    rename({
+      basename: 'styles'
+    }),
     gulp.dest('build/assets/css')
   ], cb);
 });
@@ -124,7 +130,15 @@ gulp.task('minify-loadCSS', (cb) => {
 });
 
 gulp.task('clean:build', () => {
-  del(['build/**', 'index-critical.html']).then(paths => {
+  del('build/**').then(paths => {
+    if (paths.length) {
+      gutil.log('Deleted files and folders:\n', paths.join('\n'));
+    }
+  });
+});
+
+gulp.task('clean:post-build', () => {
+  del(['index-critical.html', 'assets/css/styles-build.css']).then(paths => {
     if (paths.length) {
       gutil.log('Deleted files and folders:\n', paths.join('\n'));
     }
@@ -168,10 +182,10 @@ gulp.task('psi-desktop', () => {
 });
 
 gulp.task('default', ['sass-compile-dev', 'sass:watch']);
-gulp.task('compile:sass', ['sass-compile-build']);
-gulp.task('build', ['minify-critical-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
-gulp.task('clean', ['clean:build']);
-gulp.task('minify', ['minify-loadCSS']);
-gulp.task('critical', ['insert-critical-css']);
+// gulp.task('compile:sass', ['sass-compile-build']);
+gulp.task('build', ['minify-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
+// gulp.task('clean', ['clean:build']);
+// gulp.task('minify', ['minify-loadCSS']);
+// gulp.task('critical', ['insert-critical-css']);
 gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
 gulp.task('benchmark', ['psi-mobile', 'psi-desktop']);
