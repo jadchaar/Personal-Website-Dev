@@ -3,6 +3,7 @@ TODO: Automate performance testing
 https://www.npmjs.com/package/gulp-sitespeedio
 https://www.npmjs.com/package/gulp-webpagetest
 https://seesparkbox.com/foundry/automating_performance_testing_with_gulp
+Good article about performance: https://css-tricks.com/the-critical-request/
 */
 
 const gulp = require('gulp');
