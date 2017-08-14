@@ -1,6 +1,5 @@
 {
   "name": "PersonalWebsiteDev",
-  "email": "jad.chaar@gmail.com",
   "url": "https://jadchaar.me",
   "version": "1.0.0",
   "private": true,
@@ -44,11 +43,5 @@
     "Jad Chaar"
   ],
   "author": "Jad Chaar",
-  "license": "MIT",
-  "bugs": {
-    "url": ""
-  },
-  "homepage": "",
-  "description": "Personal Website of Jad Chaar",
-  "dependencies": {}
+  "description": "Development repository for https://jadchaar.me"
 }
