@@ -3,9 +3,9 @@ const pump = require('pump');
 const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass');
+const gulpStylelint = require('gulp-stylelint');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
-const bump = require('gulp-bump');
 const del = require('del');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
@@ -41,6 +41,13 @@ gulp.task('sass-compile-dev', (cb) => {
 gulp.task('sass-compile-build', (cb) => {
   pump([
     gulp.src('assets/sass/styles.scss'),
+    gulpStylelint({
+      failAfterError: true,
+      reporters: [{
+        formatter: 'verbose',
+        console: true
+      }]
+    }),
     sass().on('error', sass.logError),
     autoprefixer({
       cascade: false
@@ -53,9 +60,6 @@ gulp.task('sass-compile-build', (cb) => {
         gutil.log(output.warnings); // a list of warnings raised
       }
     }),
-    rename({
-      basename: 'styles-build'
-    }),
     gulp.dest('assets/css')
   ], cb);
 });
@@ -64,7 +68,7 @@ gulp.task('sass:watch', () => {
   gulp.watch('assets/sass/styles.scss', ['sass-compile-dev']);
 });
 
-gulp.task('minify-html', (cb) => {
+gulp.task('minify:html', (cb) => {
   pump([
     gulp.src('index-critical.html'),
     htmlmin({
@@ -86,17 +90,14 @@ gulp.task('minify-html', (cb) => {
   ], cb);
 });
 
-gulp.task('move-css', (cb) => {
+gulp.task('move:css', (cb) => {
   pump([
-    gulp.src('assets/css/styles-build.css'),
-    rename({
-      basename: 'styles'
-    }),
+    gulp.src('assets/css/styles.css'),
     gulp.dest('build/assets/css')
   ], cb);
 });
 
-gulp.task('minify-favicons', (cb) => {
+gulp.task('minify:favicons', (cb) => {
   pump([
     gulp.src('assets/img/favicons/*'),
     imagemin({
@@ -106,43 +107,23 @@ gulp.task('minify-favicons', (cb) => {
   ], cb);
 });
 
-gulp.task('move-sprites', (cb) => {
+gulp.task('move:sprites', (cb) => {
   pump([
     gulp.src('assets/img/sprites.svg'), gulp.dest('build/assets/img')
   ], cb);
 });
 
-gulp.task('move-cname', (cb) => {
+gulp.task('move:cname', (cb) => {
   pump([
     gulp.src('CNAME'), gulp.dest('build')
   ], cb);
 });
 
-gulp.task('minify-loadCSS', (cb) => {
+gulp.task('move:hosting', (cb) => {
   pump([
-    gulp.src(['!assets/js/*.min.js', 'assets/js/*.js']),
-    uglify(),
-    rename({
-      extname: '.min.js'
-    }),
-    gulp.dest('assets/js')
+    gulp.src('build/**'),
+    gulp.dest('../../jadchaar.github.io')
   ], cb);
-});
-
-gulp.task('clean:build', () => {
-  del('build/**').then(paths => {
-    if (paths.length) {
-      gutil.log('Deleted files and folders:\n', paths.join('\n'));
-    }
-  });
-});
-
-gulp.task('clean:post-build', () => {
-  del(['index-critical.html', 'assets/css/styles-build.css']).then(paths => {
-    if (paths.length) {
-      gutil.log('Deleted files and folders:\n', paths.join('\n'));
-    }
-  });
 });
 
 gulp.task('insert-critical-css', (cb) => {
@@ -161,9 +142,37 @@ gulp.task('insert-critical-css', (cb) => {
   ], cb);
 });
 
+// Cleaning
+
+gulp.task('clean:build', () => {
+  del('build/**').then(paths => {
+    if (paths.length) {
+      gutil.log('Deleted files and folders:\n', paths.join('\n'));
+    }
+  });
+});
+
+gulp.task('clean:post-build', () => {
+  del('index-critical.html').then(paths => {
+    if (paths.length) {
+      gutil.log('Deleted files and folders:\n', paths.join('\n'));
+    }
+  });
+});
+
+gulp.task('clean:hosting', () => {
+  del(['../../jadchaar.github.io/**', '!../../jadchaar.github.io'], {
+    force: true
+  }).then(paths => {
+    if (paths.length) {
+      gutil.log('Deleted files and folders:\n', paths.join('\n'));
+    }
+  });
+});
+
 // Google Page Speed Insights
 
-gulp.task('psi-mobile', () => {
+gulp.task('psi:mobile', () => {
   psi.output(SITE_TO_BENCHMARK, {
     nokey: 'true',
     strategy: 'mobile'
@@ -172,7 +181,7 @@ gulp.task('psi-mobile', () => {
   });
 });
 
-gulp.task('psi-desktop', () => {
+gulp.task('psi:desktop', () => {
   psi.output(SITE_TO_BENCHMARK, {
     nokey: 'true',
     strategy: 'desktop'
@@ -182,10 +191,6 @@ gulp.task('psi-desktop', () => {
 });
 
 gulp.task('default', ['sass-compile-dev', 'sass:watch']);
-// gulp.task('compile:sass', ['sass-compile-build']);
-gulp.task('build', ['minify-html', 'move-css', 'minify-favicons', 'move-sprites', 'move-cname']);
-// gulp.task('clean', ['clean:build']);
-// gulp.task('minify', ['minify-loadCSS']);
-// gulp.task('critical', ['insert-critical-css']);
+gulp.task('build', ['minify:html', 'move:css', 'minify:favicons', 'move:sprites', 'move:cname']);
 gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
-gulp.task('benchmark', ['psi-mobile', 'psi-desktop']);
+gulp.task('benchmark', ['psi:mobile', 'psi:desktop']);
