@@ -1,3 +1,10 @@
+/*
+TODO: Automate performance testing
+https://www.npmjs.com/package/gulp-sitespeedio
+https://www.npmjs.com/package/gulp-webpagetest
+https://seesparkbox.com/foundry/automating_performance_testing_with_gulp
+*/
+
 const gulp = require('gulp');
 const pump = require('pump');
 const cleanCSS = require('gulp-clean-css');
