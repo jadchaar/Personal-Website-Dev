@@ -19,40 +19,19 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const gutil = require('gulp-util');
 const critical = require('critical').stream;
-const sourcemaps = require('gulp-sourcemaps');
+const runSequence = require('run-sequence');
 
 // Google Page Speed Insights
 const psi = require('psi');
 const SITE_TO_BENCHMARK = 'https://jadchaar.me';
 
-gulp.task('sass-compile-dev', (cb) => {
-  pump([
-    gulp.src('assets/sass/styles.scss'),
-    sourcemaps.init(),
-    sass().on('error', sass.logError),
-    autoprefixer({
-      cascade: false
-    }),
-    cleanCSS((output) => {
-      if (output.errors.length) {
-        gutil.log(output.errors); // a list of errors raised
-      }
-      if (output.warnings.length) {
-        gutil.log(output.warnings); // a list of warnings raised
-      }
-    }),
-    sourcemaps.write('.'),
-    gulp.dest('assets/css')
-  ], cb);
-});
-
 gulp.task('sass-compile-build', (cb) => {
   pump([
-    gulp.src('assets/sass/styles.scss'),
+    gulp.src('assets/scss/styles.scss'),
     gulpStylelint({
       failAfterError: true,
       reporters: [{
-        formatter: 'verbose',
+        formatter: 'string',
         console: true
       }]
     }),
@@ -60,7 +39,9 @@ gulp.task('sass-compile-build', (cb) => {
     autoprefixer({
       cascade: false
     }),
-    cleanCSS((output) => {
+    cleanCSS({
+      level: 2
+    }, (output) => {
       if (output.errors.length) {
         gutil.log(output.errors); // a list of errors raised
       }
@@ -70,10 +51,6 @@ gulp.task('sass-compile-build', (cb) => {
     }),
     gulp.dest('assets/css')
   ], cb);
-});
-
-gulp.task('sass:watch', () => {
-  gulp.watch('assets/sass/styles.scss', ['sass-compile-dev']);
 });
 
 gulp.task('minify:html', (cb) => {
@@ -153,7 +130,7 @@ gulp.task('insert-critical-css', (cb) => {
 // Cleaning
 
 gulp.task('clean:build', () => {
-  del('build/**').then(paths => {
+  return del('build/**').then(paths => {
     if (paths.length) {
       gutil.log('Deleted files and folders:\n', paths.join('\n'));
     }
@@ -161,7 +138,7 @@ gulp.task('clean:build', () => {
 });
 
 gulp.task('clean:post-build', () => {
-  del('index-critical.html').then(paths => {
+  return del('index-critical.html').then(paths => {
     if (paths.length) {
       gutil.log('Deleted files and folders:\n', paths.join('\n'));
     }
@@ -169,7 +146,7 @@ gulp.task('clean:post-build', () => {
 });
 
 gulp.task('clean:hosting', () => {
-  del(['../../jadchaar.github.io/**', '!../../jadchaar.github.io'], {
+  return del(['../../jadchaar.github.io/**', '!../../jadchaar.github.io'], {
     force: true
   }).then(paths => {
     if (paths.length) {
@@ -181,7 +158,7 @@ gulp.task('clean:hosting', () => {
 // Google Page Speed Insights
 
 gulp.task('psi:mobile', () => {
-  psi.output(SITE_TO_BENCHMARK, {
+  return psi.output(SITE_TO_BENCHMARK, {
     nokey: 'true',
     strategy: 'mobile'
   }).then(() => {
@@ -190,7 +167,7 @@ gulp.task('psi:mobile', () => {
 });
 
 gulp.task('psi:desktop', () => {
-  psi.output(SITE_TO_BENCHMARK, {
+  return psi.output(SITE_TO_BENCHMARK, {
     nokey: 'true',
     strategy: 'desktop'
   }).then(() => {
@@ -198,7 +175,5 @@ gulp.task('psi:desktop', () => {
   });
 });
 
-gulp.task('default', ['sass-compile-dev', 'sass:watch']);
-gulp.task('build', ['minify:html', 'move:css', 'minify:favicons', 'move:sprites', 'move:cname']);
-gulp.task('build-prep', ['clean:build', 'insert-critical-css']);
 gulp.task('benchmark', ['psi:mobile', 'psi:desktop']);
+gulp.task('build', (callback) => runSequence('sass-compile-build', ['clean:build', 'insert-critical-css'], ['minify:html', 'move:css', 'minify:favicons', 'move:sprites', 'move:cname'], 'clean:post-build', callback));
