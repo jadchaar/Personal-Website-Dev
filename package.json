@@ -31,7 +31,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-stylelint": "^4.0.0",
-    "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "live-server": "^1.2.0",
     "node-sass": "^4.5.3",
@@ -39,7 +38,6 @@
     "psi": "^3.0.0",
     "pump": "^1.0.2",
     "run-sequence": "^2.1.0",
-    "stylelint": "^8.0.0",
     "stylelint-config-sass-guidelines": "^3.1.0"
   },
   "repository": {

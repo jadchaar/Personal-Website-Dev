@@ -15,7 +15,6 @@ const gulpStylelint = require('gulp-stylelint');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
 const del = require('del');
-const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const gutil = require('gulp-util');
 const critical = require('critical').stream;
