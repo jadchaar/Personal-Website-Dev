@@ -3,6 +3,7 @@ $open-sans: 'Open Sans';
 $space-mono: 'Space Mono';
 $white: #fff;
 $black: #000;
+$heart: #be1931;
 $p-text-color: #3e3e3e;
 $michigan-maize: #ffcb05;
 $michigan-blue: #00274c;
@@ -19,44 +20,42 @@ $transparent: rgba(0, 0, 0, 0);
 @mixin links-opacity ($link, $visit, $hover, $active) {
   a {
     opacity: $link;
-
     &:visited {
       opacity: $visit;
     }
-
     &:hover {
       opacity: $hover;
     }
-
     &:active {
       opacity: $active;
     }
   }
 }
+
 @mixin links-color ($link, $visit, $hover, $active) {
   a {
     color: $link;
-
     &:visited {
       color: $visit;
     }
-
     &:hover {
       color: $hover;
     }
-
     &:active {
       color: $active;
     }
   }
 }
+
 @mixin center-elements {
   margin: 0 auto;
   max-width: 40em;
 }
+
 @mixin linear-gradient-theme {
   background: linear-gradient(to right, $gradient-color-one, $gradient-color-two);
 }
+
 @mixin text-stroke($stroke-width, $stroke-color, $text-color) {
   // Add text-stroke to supported browsers
   @supports ((-webkit-text-fill-color: $text-color)) {
@@ -64,8 +63,7 @@ $transparent: rgba(0, 0, 0, 0);
   }
   @supports ((-webkit-text-stroke-color: $stroke-color) and (-webkit-text-stroke-width: $stroke-width)) {
     -webkit-text-stroke: $stroke-width $stroke-color;
-  }
-  // Fallbacks for unsupported browsers
+  } // Fallbacks for unsupported browsers
   @supports not ((-webkit-text-fill-color: $text-color)) {
     color: $text-color;
   }
@@ -73,17 +71,18 @@ $transparent: rgba(0, 0, 0, 0);
     text-shadow: -1px -1px 1px $michigan-blue, 1px -1px 1px $michigan-blue, -1px 1px 1px $michigan-blue, 1px 1px 1px $michigan-blue;
   }
 }
+
 @mixin font-selection($family: 'Open Sans', $weight: 400) {
-  @if $family == 'Open Sans' {
+  @if $family=='Open Sans' {
     font-family: $family, sans-serif;
     font-weight: $weight;
   }
-
-  @if $family == 'Space Mono' {
+  @if $family=='Space Mono' {
     font-family: $family, monospace;
     font-weight: $weight;
   }
 }
+
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 767px) {
   main {
@@ -114,8 +113,8 @@ strong {
   outline: 0;
   text-decoration: none;
 }
-// Top Banner
 
+// Top Banner
 header {
   @include linear-gradient-theme;
   cursor: default;
@@ -124,52 +123,59 @@ header {
   user-select: none;
 }
 
-header > svg {
+header .jc-logo {
   border: 5px solid $white;
   border-radius: 50%;
 }
 
-header > h1 {
+header h1 {
   @include font-selection($open-sans, 700);
   color: $white;
   font-size: $h1-text-size;
 }
-// Social Links
 
-header > ul {
+/*
+*******************
+Social Link Styling
+*/
+
+header ul {
   list-style-type: none;
   padding: 0;
 }
 
-header > ul > li {
+header ul li {
   @include links-opacity(1, 1, 0.6, 0.6);
   display: inline-block;
 }
 
 header a {
   display: block;
-
-  svg {
-    fill: $white;
-    height: 1.75em;
-    padding: 0 0.75em;
-    width: 1.75em;
+  i {
+    color: $white;
+    font-size: 1.75em;
+    padding: 0 0.5em;
   }
 }
-// Main Content
 
+/*
+Social Link Styling
+*******************
+*/
+
+// Main Content
 main {
   @include center-elements;
   color: $black;
   position: relative; // Fixes full width selection in Safari
 }
 
-main > section > h2 {
+main section h2 {
   @include font-selection($space-mono, 700);
   font-size: $h2-text-size;
 }
 
-main > section > p {
+main section p {
   @include links-color($anchor-link-default, $anchor-link-default, $anchor-link-hover, $anchor-link-active);
   @include font-selection;
   color: $p-text-color;
@@ -179,15 +185,6 @@ main > section > p {
 
 .go-blue-text {
   @include text-stroke(1px, $michigan-blue, $michigan-maize)letter-spacing: 0.05em;
-}
-
-footer > p > svg {
-  display: inline-block;
-  height: 1.25em;
-  line-height: normal;
-  margin: -0.25ex 0.0625em 0 0.125em;
-  vertical-align: middle;
-  width: 1.25em;
 }
 
 footer {
@@ -201,21 +198,11 @@ hr {
   height: 1px;
 }
 
-footer > p {
+footer p {
   @include font-selection;
   color: $p-text-color;
   font-size: $p-text-size;
+  i {
+    color: $heart;
+  }
 }
-// .circle-groups {
-//   align-items: center;
-//   display: flex;
-//   justify-content: center;
-// }
-//
-// .circle {
-//   @include linear-gradient-theme;
-//   border-radius: 25px;
-//   height: 10px;
-//   margin: 0 .5em;
-//   width: 10px;
-// }

@@ -19,8 +19,7 @@
     "benchmark": "gulp benchmark",
     "color-contrast": "node colorable.js"
   },
-  "devDependencies": {
-    "colorable": "^1.0.5",
+  "dependencies": {
     "critical": "^0.9.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -33,8 +32,9 @@
     "gulp-stylelint": "^4.0.0",
     "gulp-util": "^3.0.8",
     "live-server": "^1.2.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.9.0",
     "npm-run-all": "^4.0.2",
+    "postcss": "^6.0.21",
     "psi": "^3.0.0",
     "pump": "^1.0.2",
     "run-sequence": "^2.1.0",

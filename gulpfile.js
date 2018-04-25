@@ -28,7 +28,7 @@ gulp.task('sass-compile-build', (cb) => {
   pump([
     gulp.src('assets/scss/styles.scss'),
     gulpStylelint({
-      failAfterError: true,
+      failAfterError: false,
       reporters: [{
         formatter: 'string',
         console: true
