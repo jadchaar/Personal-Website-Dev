@@ -151,10 +151,18 @@ header ul li {
 
 header a {
   display: block;
-  i {
-    color: $white;
-    font-size: 1.75em;
+  // i {
+  //   color: $white;
+  //   font-size: 1.75em;
+  //   padding: 0 0.5em;
+  // }
+  svg {
+    // width: 1.75em;
+    // height: 1.75em;
     padding: 0 0.5em;
+    path {
+      fill: $white;
+    }
   }
 }
 
@@ -202,7 +210,10 @@ footer p {
   @include font-selection;
   color: $p-text-color;
   font-size: $p-text-size;
-  i {
-    color: $heart;
+  // i {
+  //   color: $heart;
+  // }
+  svg path {
+    fill: $heart;
   }
 }
