@@ -467,4 +467,4 @@ fabric.properties
 # Ignore build folder
 build/
 
-*.sketch
+designs.sketch
