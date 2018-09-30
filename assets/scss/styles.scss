@@ -185,7 +185,8 @@ main section p {
 }
 
 .go-blue-text {
-  @include text-stroke(1px, $michigan-blue, $michigan-maize)letter-spacing: 0.05em;
+  @include text-stroke(1px, $michigan-blue, $michigan-maize);
+  letter-spacing: 0.05em;
 }
 
 footer {
