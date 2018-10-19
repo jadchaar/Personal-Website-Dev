@@ -2,224 +2,226 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Jad Chaar is a passionate technologist and aspiring entrepreneur from Ann Arbor, Michigan.">
-  <meta name="keywords" content="Jad, Chaar, Jad Chaar">
-  <meta name="author" content="Jad Chaar">
-  <meta name="google-site-verification" content="kh1wrXGk0m6Qg7l185hZRxrsfCg-ISd38jlqnLusmNw" />
-  <link rel="canonical" href="https://jadchaar.me">
-  <title>Jad Chaar</title>
-  <script>
-    WebFontConfig = {
-      google: {
-        families: ["Open Sans:400,700", "Space Mono:700"]
-      }
-    };
-    (function (a) {
-      var b = a.createElement("script");
-      a = a.scripts[0];
-      b.src = "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js";
-      b.async = !0;
-      a.parentNode.insertBefore(b, a)
-    })(document);
-  </script>
-  <noscript>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Space+Mono:700" rel="stylesheet">
-  </noscript>
-  <link rel="preload" href="assets/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="assets/css/styles.css">
-  </noscript>
-  <script>
-    /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-    /* This file is meant as a standalone workflow for
-    - testing support for link[rel=preload]
-    - enabling async CSS loading in browsers that do not support rel=preload
-    - applying rel preload css once loaded, whether supported or not.
-    */
-    (function (w) {
-      "use strict";
-      // rel=preload support test
-      if (!w.loadCSS) {
-        w.loadCSS = function () {};
-      }
-      // define on the loadCSS obj
-      var rp = loadCSS.relpreload = {};
-      // rel=preload feature support test
-      // runs once and returns a function for compat purposes
-      rp.support = (function () {
-        var ret;
-        try {
-          ret = w.document.createElement("link").relList.supports("preload");
-        } catch (e) {
-          ret = false;
-        }
-        return function () {
-          return ret;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Jad Chaar is a passionate technologist and aspiring entrepreneur from Ann Arbor, Michigan.">
+    <meta name="keywords" content="Jad, Chaar, Jad Chaar">
+    <meta name="author" content="Jad Chaar">
+    <meta name="google-site-verification" content="kh1wrXGk0m6Qg7l185hZRxrsfCg-ISd38jlqnLusmNw" />
+    <link rel="canonical" href="https://jadchaar.me">
+    <title>Jad Chaar</title>
+    <script>
+        WebFontConfig = {
+            google: {
+                families: ["Open Sans:400,700", "Space Mono:700"]
+            }
         };
-      })();
+        (function (a) {
+            var b = a.createElement("script");
+            a = a.scripts[0];
+            b.src = "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js";
+            b.async = !0;
+            a.parentNode.insertBefore(b, a)
+        })(document);
+    </script>
+    <noscript>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Space+Mono:700" rel="stylesheet">
+    </noscript>
+    <link rel="preload" href="assets/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="assets/css/styles.css">
+    </noscript>
+    <script>
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        /* This file is meant as a standalone workflow for
+        - testing support for link[rel=preload]
+        - enabling async CSS loading in browsers that do not support rel=preload
+        - applying rel preload css once loaded, whether supported or not.
+        */
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () {};
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
 
-      // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-      // then change that media back to its intended value on load
-      rp.bindMediaToggle = function (link) {
-        // remember existing media attr for ultimate state, or default to 'all'
-        var finalMedia = link.media || "all";
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
 
-        function enableStylesheet() {
-          link.media = finalMedia;
-        }
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
 
-        // bind load handlers to enable media
-        if (link.addEventListener) {
-          link.addEventListener("load", enableStylesheet);
-        } else if (link.attachEvent) {
-          link.attachEvent("onload", enableStylesheet);
-        }
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
 
-        // Set rel and non-applicable media type to start an async request
-        // note: timeout allows this to happen async to let rendering continue in IE
-        setTimeout(function () {
-          link.rel = "stylesheet";
-          link.media = "only x";
-        });
-        // also enable media after 3 seconds,
-        // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-        setTimeout(enableStylesheet, 3000);
-      };
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
 
-      // loop through link elements in DOM
-      rp.poly = function () {
-        // double check this to prevent external calls from running
-        if (rp.support()) {
-          return;
-        }
-        var links = w.document.getElementsByTagName("link");
-        for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          // qualify links to those with rel=preload and as=style attrs
-          if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
-            // prevent rerunning on link
-            link.setAttribute("data-loadcss", true);
-            // bind listeners to toggle media back
-            rp.bindMediaToggle(link);
-          }
-        }
-      };
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute(
+                            "data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
 
-      // if unsupported, run the polyfill
-      if (!rp.support()) {
-        // run once at least
-        rp.poly();
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
 
-        // rerun poly on an interval until onload
-        var run = w.setInterval(rp.poly, 500);
-        if (w.addEventListener) {
-          w.addEventListener("load", function () {
-            rp.poly();
-            w.clearInterval(run);
-          });
-        } else if (w.attachEvent) {
-          w.attachEvent("onload", function () {
-            rp.poly();
-            w.clearInterval(run);
-          });
-        }
-      }
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
 
 
-      // commonjs
-      if (typeof exports !== "undefined") {
-        exports.loadCSS = loadCSS;
-      } else {
-        w.loadCSS = loadCSS;
-      }
-    }(typeof global !== "undefined" ? global : this));
-  </script>
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            } else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
 
-  <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/solid.js" integrity="sha384-U4vTrZsQ4ooEtzL162EZfTtCiJNTXOwGDBzV91//DI5L/h48ibzHBiHJmPLpx2hO"
-    crossorigin="anonymous"></script>
-  <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/brands.js" integrity="sha384-am5AyalpQCEfbKe6FYiGZc2vX080nrcueZmrbkljxLdQDJ5q5Vu9QDROD/QefEp1"
-    crossorigin="anonymous"></script>
-  <script defer src="https://pro.fontawesome.com/releases/v5.3.1/js/fontawesome.js" integrity="sha384-u3o36ga3mMU6/lK/zdiER4h7pPtAK7wBuN0DrZPH22v01RZL8bKZkULIjxcx2/X/"
-    crossorigin="anonymous"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.4.1/js/solid.js" integrity="sha384-KlTWIsOnBg7LJobQmLsv5fQ1qbx73K+o8/xhoUDoIba13SxF4bT5W2WgV3d8mZIw"
+        crossorigin="anonymous"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.4.1/js/brands.js" integrity="sha384-ShBqjf9lFG58e2NmhnbVlhAOPCWdzkPbBmAEcQ37Liu3TwOYxIizS7J1P3rRLJHm"
+        crossorigin="anonymous"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.4.1/js/fontawesome.js" integrity="sha384-8vKKeD0uIV/HXM5ym3RGB4O7rZ43fCdpiXqP047w7sEE3igcK0Y1U9ApEArcRBDJ"
+        crossorigin="anonymous"></script>
 
-  <!-- TODO: Add <noscript> fallback for Font Awesome. Requires complete refactoring of styling. -->
+    <!-- TODO: Add <noscript> fallback for Font Awesome. Requires complete refactoring of styling. -->
 
-  <link rel="icon" href="assets/img/favicons/favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-  <link rel="mask-icon" href="assets/img/favicons/safari-pinned-tab.svg" color="#0784E8">
+    <link rel="icon" href="assets/img/favicons/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="mask-icon" href="assets/img/favicons/safari-pinned-tab.svg" color="#0784E8">
 </head>
 
 <body>
 
-  <header>
-    <svg class="jc-logo" width="150" height="150" viewbox="0 0 150 150">
-      <g fill="none" fill-rule="evenodd">
-        <circle fill="#0784E8" cx="75" cy="75" r="75" />
-        <path d="M55.596 147.483C29.788 140.58 9.466 120.258 2.563 94.45L94.45 2.563c25.808 6.902 46.131 27.225 53.033 53.033l-91.887 91.887z"
-          fill="#333" />
-        <path d="M76.929 87.04c3.613 3.612 5.394 7.35 5.345 11.21-.05 3.862-1.782 7.5-5.196 10.914-1.757 1.757-3.588 3.107-5.494 4.052-1.906.945-3.845 1.458-5.817 1.541-1.972.083-3.928-.281-5.867-1.094-1.939-.812-3.82-2.13-5.643-3.952l-3.281-3.282 6.563-6.562 3.281 3.281c1.558 1.558 3.207 2.345 4.947 2.362 1.74.016 3.39-.754 4.947-2.312 1.458-1.459 2.163-3.025 2.113-4.699-.05-1.674-.87-3.306-2.461-4.897L52.169 75.405l-3.58 3.58-6.165-6.165L55.55 59.694l6.165 6.165-2.983 2.983L76.929 87.04zm25.207-14.867c1.26-1.26 2.105-2.486 2.536-3.679.43-1.193.547-2.337.348-3.43-.2-1.094-.638-2.146-1.318-3.157a19.142 19.142 0 0 0-2.361-2.86l-.895-.894 6.562-6.563.895.895c4.144 4.143 6.248 8.419 6.315 12.827.066 4.409-1.973 8.684-6.116 12.828-3.977 3.977-8.336 5.916-13.076 5.817-4.74-.1-9.43-2.47-14.07-7.11L73.2 69.09c-2.22-2.22-3.92-4.516-5.096-6.886-1.177-2.37-1.807-4.723-1.89-7.06-.082-2.337.349-4.624 1.293-6.861.945-2.238 2.411-4.35 4.4-6.34 2.055-2.054 4.177-3.58 6.364-4.573 2.188-.995 4.384-1.467 6.588-1.417 2.204.05 4.375.596 6.513 1.64s4.201 2.56 6.19 4.55l.895.894-6.563 6.563-.895-.895a15.017 15.017 0 0 0-2.784-2.187 9.207 9.207 0 0 0-3.232-1.243c-1.127-.2-2.295-.108-3.505.273s-2.411 1.169-3.605 2.362c-1.093 1.094-1.83 2.245-2.212 3.455a8.154 8.154 0 0 0-.298 3.68c.182 1.242.621 2.46 1.317 3.654a16.372 16.372 0 0 0 2.586 3.33l8.75 8.751c1.127 1.127 2.279 2.047 3.455 2.76 1.177.712 2.362 1.168 3.555 1.367 1.194.199 2.387.083 3.58-.348s2.37-1.226 3.53-2.387z"
-          fill="#FFF" />
-      </g>
-    </svg>
-    <h1>Jad Chaar</h1>
-    <ul>
-      <li>
-        <a href="https://twitter.com/jad_chaar" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/jad_chaar/" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/jadchaar" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-github-alt fa-2x"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.linkedin.com/in/jadchaar" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-linkedin-in fa-2x"></i>
-        </a>
-      </li>
-    </ul>
-  </header>
+    <header>
+        <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd">
+                <circle fill="#0784E8" cx="75" cy="75" r="75" />
+                <path d="M55.596 147.483C29.788 140.58 9.466 120.258 2.563 94.45L94.45 2.563c25.808 6.902 46.131 27.225 53.033 53.033l-91.887 91.887z"
+                    fill="#333" />
+                <path d="M76.929 87.04c3.613 3.612 5.394 7.35 5.345 11.21-.05 3.862-1.782 7.5-5.196 10.914-1.757 1.757-3.588 3.107-5.494 4.052-1.906.945-3.845 1.458-5.817 1.541-1.972.083-3.928-.281-5.867-1.094-1.939-.812-3.82-2.13-5.643-3.952l-3.281-3.282 6.563-6.562 3.281 3.281c1.558 1.558 3.207 2.345 4.947 2.362 1.74.016 3.39-.754 4.947-2.312 1.458-1.459 2.163-3.025 2.113-4.699-.05-1.674-.87-3.306-2.461-4.897L52.169 75.405l-3.58 3.58-6.165-6.165L55.55 59.694l6.165 6.165-2.983 2.983L76.929 87.04zm25.207-14.867c1.26-1.26 2.105-2.486 2.536-3.679.43-1.193.547-2.337.348-3.43-.2-1.094-.638-2.146-1.318-3.157a19.142 19.142 0 0 0-2.361-2.86l-.895-.894 6.562-6.563.895.895c4.144 4.143 6.248 8.419 6.315 12.827.066 4.409-1.973 8.684-6.116 12.828-3.977 3.977-8.336 5.916-13.076 5.817-4.74-.1-9.43-2.47-14.07-7.11L73.2 69.09c-2.22-2.22-3.92-4.516-5.096-6.886-1.177-2.37-1.807-4.723-1.89-7.06-.082-2.337.349-4.624 1.293-6.861.945-2.238 2.411-4.35 4.4-6.34 2.055-2.054 4.177-3.58 6.364-4.573 2.188-.995 4.384-1.467 6.588-1.417 2.204.05 4.375.596 6.513 1.64s4.201 2.56 6.19 4.55l.895.894-6.563 6.563-.895-.895a15.017 15.017 0 0 0-2.784-2.187 9.207 9.207 0 0 0-3.232-1.243c-1.127-.2-2.295-.108-3.505.273s-2.411 1.169-3.605 2.362c-1.093 1.094-1.83 2.245-2.212 3.455a8.154 8.154 0 0 0-.298 3.68c.182 1.242.621 2.46 1.317 3.654a16.372 16.372 0 0 0 2.586 3.33l8.75 8.751c1.127 1.127 2.279 2.047 3.455 2.76 1.177.712 2.362 1.168 3.555 1.367 1.194.199 2.387.083 3.58-.348s2.37-1.226 3.53-2.387z"
+                    fill="#FFF" />
+            </g>
+        </svg>
+        <h1>Jad Chaar</h1>
+        <ul>
+            <li>
+                <a href="https://twitter.com/jad_chaar" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/jad_chaar/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/jadchaar" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github-alt fa-2x"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/jadchaar" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+    </header>
 
-  <main>
-    <section>
-      <h2>Welcome</h2>
-      <p>
-        Hi, I'm Jad, a technologist and aspiring entrepreneur from
-        <a href="https://en.wikipedia.org/wiki/Ann_Arbor,_Michigan" target="_blank" rel="noopener noreferrer">Ann
-          Arbor, Michigan</a>. I am currently studying computer science at the University of Michigan College of
-        Engineering
-        (
-        <strong>
-          <span class="go-blue-text">Go Blue!</span>
-        </strong>
-        ) and enjoy anything related to technology, science, and alternative energy.
-      </p>
-    </section>
+    <main>
+        <section>
+            <h2>Welcome</h2>
+            <p>
+                Hi, I'm Jad, a technologist and aspiring entrepreneur from
+                <a href="https://en.wikipedia.org/wiki/Ann_Arbor,_Michigan" target="_blank" rel="noopener noreferrer">Ann
+                    Arbor, Michigan</a>. I am currently studying computer science at the University of Michigan College
+                of
+                Engineering
+                (
+                <strong>
+                    <span class="go-blue-text">Go Blue!</span>
+                </strong>
+                ) and enjoy anything related to technology, science, and alternative energy.
+            </p>
+        </section>
 
-    <section>
-      <h2>Contact</h2>
-      <p>
-        If you have any questions or would simply like to chat, email me at
-        <a href="mailto:jad.chaar@gmail.com">jad.chaar@gmail.com</a>. I will try to respond in a timely manner.
-      </p>
-    </section>
-  </main>
+        <section>
+            <h2>Contact</h2>
+            <p>
+                If you have any questions or would simply like to chat, email me at
+                <a href="mailto:jad.chaar@gmail.com">jad.chaar@gmail.com</a>. I will try to respond in a timely manner.
+            </p>
+        </section>
+    </main>
 
-  <footer>
-    <hr />
-    <p>
-      Coded with
-      <i class="fas fa-heart"></i> in Ann Arbor
-    </p>
-  </footer>
+    <footer>
+        <hr />
+        <p>
+            Coded with
+            <i class="fas fa-heart"></i> in Ann Arbor
+        </p>
+    </footer>
 
 </body>
 
